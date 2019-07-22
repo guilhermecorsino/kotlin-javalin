@@ -13,15 +13,15 @@ class Account(
         beneficiary.creditMoney(moneyToBeTransferred)
     }
 
-    fun creditMoney(moneyToBeCredited: Double) {
-        availableMoney += moneyToBeCredited
-    }
-
     fun getAvailableMoney(): Double {
         return availableMoney
     }
 
     fun getIdentifier(): UUID {
         return id
+    }
+
+    private fun creditMoney(moneyToBeCredited: Double) {
+        availableMoney += moneyToBeCredited
     }
 }
