@@ -1,4 +1,7 @@
+import java.util.UUID
+
 class Account(
+    private val id: UUID,
     private var availableMoney: Double
 ) {
     fun transfer(moneyToBeTransferred: Double, beneficiary: Account) {
@@ -16,5 +19,9 @@ class Account(
 
     fun getAvailableMoney(): Double {
         return availableMoney
+    }
+
+    fun getIdentifier(): UUID {
+        return id
     }
 }

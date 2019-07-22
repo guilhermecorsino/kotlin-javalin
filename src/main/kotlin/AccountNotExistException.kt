@@ -1,0 +1,1 @@
+class AccountNotExistException: Exception()
