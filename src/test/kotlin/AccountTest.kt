@@ -1,19 +1,8 @@
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
-import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class AccountTest {
-
-    @Test
-    fun `does transfer when account has the value to be transacted`() {
-        val account = Account(10.00)
-        val beneficiary = Account (20.00)
-
-        val isTransferValid = account.transfer(10.00, beneficiary)
-
-        assertTrue(isTransferValid)
-    }
 
     @Test
     fun `throws InvalidTransfer when the accounts balance is insufficient`() {
