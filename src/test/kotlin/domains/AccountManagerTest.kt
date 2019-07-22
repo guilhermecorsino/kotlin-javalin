@@ -1,7 +1,5 @@
 package domains
 
-import domains.Account
-import domains.AccountManager
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import java.util.UUID
@@ -15,7 +13,7 @@ class AccountManagerTest {
 
         accountManager.insertAccount(Account(accountId,10.00))
 
-        val account = accountManager.getAccountByNumber(accountId)
+        val account = accountManager.getAccountById(accountId)
 
         assertThat(account?.getIdentifier()).isEqualTo(accountId)
     }
@@ -24,7 +22,7 @@ class AccountManagerTest {
     fun `returns null when account was not found`() {
         val accountManager = AccountManager()
 
-        val account = accountManager.getAccountByNumber(UUID.randomUUID())
+        val account = accountManager.getAccountById(UUID.randomUUID())
 
         assertThat(account).isNull()
     }

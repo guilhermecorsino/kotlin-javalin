@@ -5,7 +5,6 @@ import domains.AccountManager
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import requests.TransferRequest
-import services.AccountService
 import java.util.UUID
 
 class AccountServiceTest {
@@ -25,7 +24,7 @@ class AccountServiceTest {
 
         service.transfer(transaction)
 
-        assertThat(manager.getAccountByNumber(giverId)?.getAvailableMoney()).isEqualTo(20.00)
-        assertThat(manager.getAccountByNumber(beneficiaryId)?.getAvailableMoney()).isEqualTo(20.00)
+        assertThat(manager.getAccountById(giverId)?.getAvailableMoney()).isEqualTo(20.00)
+        assertThat(manager.getAccountById(beneficiaryId)?.getAvailableMoney()).isEqualTo(20.00)
     }
 }
