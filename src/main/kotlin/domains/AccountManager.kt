@@ -1,3 +1,5 @@
+package domains
+
 import java.util.UUID
 
 class AccountManager {

@@ -1,3 +1,6 @@
+package domains
+
+import exceptions.InvalidTransferException
 import java.util.UUID
 
 class Account(

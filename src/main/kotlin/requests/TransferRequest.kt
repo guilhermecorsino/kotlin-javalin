@@ -1,6 +1,8 @@
+package requests
+
 import java.util.UUID
 
-class TransferTransaction(
+class TransferRequest(
     val giverId: UUID,
     val beneficiaryId: UUID,
     val value: Double

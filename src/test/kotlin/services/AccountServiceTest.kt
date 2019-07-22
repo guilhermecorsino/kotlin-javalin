@@ -1,5 +1,11 @@
+package services
+
+import domains.Account
+import domains.AccountManager
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
+import requests.TransferRequest
+import services.AccountService
 import java.util.UUID
 
 class AccountServiceTest {
@@ -15,7 +21,7 @@ class AccountServiceTest {
         manager.insertAccount(Account(giverId, 30.00))
         manager.insertAccount(Account(beneficiaryId, 10.00))
 
-        val transaction = TransferTransaction(giverId, beneficiaryId, 10.00)
+        val transaction = TransferRequest(giverId, beneficiaryId, 10.00)
 
         service.transfer(transaction)
 

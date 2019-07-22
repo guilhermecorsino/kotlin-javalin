@@ -1,3 +1,6 @@
+package domains
+
+import exceptions.InvalidTransferException
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.Test
