@@ -8,10 +8,9 @@ class Account(
     private var availableMoney: Double
 ) {
     fun transfer(moneyToBeTransferred: Double, beneficiary: Account) {
-        if (moneyToBeTransferred > this.availableMoney)
-            throw InvalidTransferException()
+        validateTransfer(moneyToBeTransferred)
 
-        this.availableMoney -= moneyToBeTransferred
+        debitMoney(moneyToBeTransferred)
 
         beneficiary.creditMoney(moneyToBeTransferred)
     }
@@ -24,7 +23,16 @@ class Account(
         return id
     }
 
+    private fun debitMoney(moneyToBeTransferred: Double) {
+        this.availableMoney -= moneyToBeTransferred
+    }
+
     private fun creditMoney(moneyToBeCredited: Double) {
         availableMoney += moneyToBeCredited
+    }
+
+    private fun validateTransfer(moneyToBeTransferred: Double) {
+        if (moneyToBeTransferred > this.availableMoney)
+            throw InvalidTransferException()
     }
 }
