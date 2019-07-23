@@ -17,4 +17,8 @@ class AccountManager {
     fun insertAccount(account: Account) {
         accounts.add(account)
     }
+
+    fun getAllAccounts(): List<Account> {
+        return accounts.toList()
+    }
 }

@@ -26,4 +26,17 @@ class AccountManagerTest {
 
         assertThatThrownBy { accountManager.getAccountById("1") }
     }
+
+    @Test
+    fun `returns all created accounts`() {
+        val accountManager = AccountManager()
+
+        accountManager.insertAccount(Account("1",10.00))
+        accountManager.insertAccount(Account("2",15.00))
+        accountManager.insertAccount(Account("3",20.00))
+
+        val accounts = accountManager.getAllAccounts()
+
+        assertThat(accounts.size).isEqualTo(3)
+    }
 }

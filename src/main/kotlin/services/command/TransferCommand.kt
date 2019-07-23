@@ -1,4 +1,4 @@
-package requests
+package services.command
 
 data class TransferCommand(
     val giverId: String,

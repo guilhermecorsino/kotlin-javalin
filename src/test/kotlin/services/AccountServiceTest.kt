@@ -7,7 +7,8 @@ import exceptions.UserNotFoundException
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.Test
-import requests.TransferCommand
+import services.command.TransferCommand
+import services.command.CreateAccountCommand
 
 class AccountServiceTest {
 
@@ -59,5 +60,18 @@ class AccountServiceTest {
         service.createAccount(command)
 
         assertThat(manager.getAccountById(id).getIdentifier()).isEqualTo(id)
+    }
+
+    @Test
+    fun `gets all created accounts`() {
+        val giverId = "123"
+        val beneficiaryId = "55"
+
+        manager.insertAccount(Account(giverId, 30.00))
+        manager.insertAccount(Account(beneficiaryId, 10.00))
+
+        val accounts = service.getAllAccounts()
+
+        assertThat(accounts.size).isEqualTo(2)
     }
 }

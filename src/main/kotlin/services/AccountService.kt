@@ -2,7 +2,8 @@ package services
 
 import domains.Account
 import domains.AccountManager
-import requests.TransferCommand
+import services.command.TransferCommand
+import services.command.CreateAccountCommand
 
 class AccountService(
     private val manager: AccountManager
@@ -17,5 +18,9 @@ class AccountService(
 
     fun createAccount(command: CreateAccountCommand) {
         manager.insertAccount(Account(command.id, command.balance))
+    }
+
+    fun getAllAccounts(): List<Account> {
+        return manager.getAllAccounts()
     }
 }

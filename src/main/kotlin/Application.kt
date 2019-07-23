@@ -1,13 +1,12 @@
 import domains.AccountManager
 import exceptions.ApiException
 import io.javalin.Javalin
-import io.javalin.apibuilder.ApiBuilder.path
-import io.javalin.apibuilder.ApiBuilder.post
+import io.javalin.apibuilder.ApiBuilder.*
 import io.javalin.http.Context
 import requests.CreateAccountRequest
-import requests.TransferCommand
+import services.command.TransferCommand
 import requests.TransferRequest
-import services.CreateAccountCommand
+import services.command.CreateAccountCommand
 import services.AccountService
 
 fun main(args: Array<String>) {
@@ -18,7 +17,11 @@ fun main(args: Array<String>) {
     val app = Javalin.create().start(7000)
 
     app.routes {
-        path("account") {
+        path("accounts") {
+            get { ctx ->
+                getAllAccounts(ctx, service)
+            }
+
             post { ctx ->
                 createAccount(ctx, service)
             }
@@ -35,6 +38,10 @@ fun main(args: Array<String>) {
         ctx.status(e.httpStatus())
         ctx.result(e.message())
     }
+}
+
+private fun getAllAccounts(ctx: Context, service: AccountService) {
+    ctx.json(service.getAllAccounts())
 }
 
 private fun createAccount(ctx: Context, service: AccountService) {
