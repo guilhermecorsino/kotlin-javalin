@@ -7,12 +7,12 @@ import requests.TransferRequest
 class AccountService(
     private val manager: AccountManager
 ) {
-    fun transfer(request: TransferRequest) {
+    fun transfer(transfer: TransferRequest) {
         try {
-            val giver = manager.getAccountById(request.giverId)
-            val beneficiary = manager.getAccountById(request.beneficiaryId)
+            val giver = manager.getAccountById(transfer.giverId)
+            val beneficiary = manager.getAccountById(transfer.beneficiaryId)
 
-            giver.transfer(request.value, beneficiary)
+            giver.transfer(transfer.value, beneficiary)
         }
         catch (e: Exception) {
             throw UserNotFoundException()
