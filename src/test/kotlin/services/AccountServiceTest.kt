@@ -6,8 +6,7 @@ import exceptions.UserNotFoundException
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.Test
-import requests.TransferRequest
-import java.util.UUID
+import requests.TransferCommand
 
 class AccountServiceTest {
 
@@ -16,13 +15,13 @@ class AccountServiceTest {
 
     @Test
     fun `transfers money to the beneficiary`() {
-        val giverId = UUID.randomUUID()
-        val beneficiaryId = UUID.randomUUID()
+        val giverId = "123"
+        val beneficiaryId = "55"
 
         manager.insertAccount(Account(giverId, 30.00))
         manager.insertAccount(Account(beneficiaryId, 10.00))
 
-        val transaction = TransferRequest(giverId, beneficiaryId, 10.00)
+        val transaction = TransferCommand(giverId, beneficiaryId, 10.00)
 
         service.transfer(transaction)
 
@@ -32,7 +31,7 @@ class AccountServiceTest {
 
     @Test
     fun `throws UserNotFoundException when the user id was not found`() {
-        val transaction = TransferRequest(UUID.randomUUID(), UUID.randomUUID(), 10.00)
+        val transaction = TransferCommand("1", "2", 10.00)
 
         assertThatThrownBy {
             service.transfer(transaction)

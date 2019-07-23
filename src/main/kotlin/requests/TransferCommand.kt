@@ -1,6 +1,7 @@
 package requests
 
-data class TransferRequest(
+data class TransferCommand(
+    val giverId: String,
     val beneficiaryId: String,
     val value: Double
 )

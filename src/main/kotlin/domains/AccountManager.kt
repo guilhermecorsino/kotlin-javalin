@@ -1,11 +1,9 @@
 package domains
 
-import java.util.UUID
-
 class AccountManager {
     private var accounts: ArrayList<Account> = arrayListOf()
 
-    fun getAccountById(id: UUID): Account {
+    fun getAccountById(id: String): Account {
         return accounts.first { it.getIdentifier() == id }
     }
 

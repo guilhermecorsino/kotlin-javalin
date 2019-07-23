@@ -1,10 +1,9 @@
 package domains
 
 import exceptions.InvalidTransferException
-import java.util.UUID
 
 class Account(
-    private val id: UUID,
+    private val id: String,
     private var availableMoney: Double
 ) {
     fun transfer(moneyToBeTransferred: Double, beneficiary: Account) {
@@ -19,7 +18,7 @@ class Account(
         return availableMoney
     }
 
-    fun getIdentifier(): UUID {
+    fun getIdentifier(): String {
         return id
     }
 

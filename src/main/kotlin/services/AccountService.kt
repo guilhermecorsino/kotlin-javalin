@@ -2,12 +2,12 @@ package services
 
 import domains.AccountManager
 import exceptions.UserNotFoundException
-import requests.TransferRequest
+import requests.TransferCommand
 
 class AccountService(
     private val manager: AccountManager
 ) {
-    fun transfer(transfer: TransferRequest) {
+    fun transfer(transfer: TransferCommand) {
         try {
             val giver = manager.getAccountById(transfer.giverId)
             val beneficiary = manager.getAccountById(transfer.beneficiaryId)
