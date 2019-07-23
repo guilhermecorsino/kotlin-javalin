@@ -2,6 +2,8 @@ package test.domains
 
 import domains.Account
 import domains.AccountManager
+import exceptions.UserAlreadyExistentException
+import exceptions.UserNotFoundException
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.Test
@@ -21,10 +23,22 @@ class AccountManagerTest {
     }
 
     @Test
-    fun `throws NoSuchElementException when account was not found`() {
+    fun `throws UserAlreadyExistentException when trying to insert an user with an existent Id`() {
+        val accountManager = AccountManager()
+
+        accountManager.insertAccount(Account("1",10.00))
+
+        assertThatThrownBy {
+            accountManager.insertAccount(Account("1",10.00))
+        }.isInstanceOf(UserAlreadyExistentException::class.java)
+    }
+
+    @Test
+    fun `throws UserNotFoundException when account was not found`() {
         val accountManager = AccountManager()
 
         assertThatThrownBy { accountManager.getAccountById("1") }
+            .isInstanceOf(UserNotFoundException::class.java)
     }
 
     @Test

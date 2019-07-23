@@ -1,5 +1,6 @@
 package domains
 
+import exceptions.UserAlreadyExistentException
 import exceptions.UserNotFoundException
 import java.lang.Exception
 
@@ -15,8 +16,13 @@ class AccountManager {
     }
 
     fun insertAccount(account: Account) {
+        if (isARegisteredUser(account))
+            throw UserAlreadyExistentException()
+
         accounts.add(account)
     }
+
+    private fun isARegisteredUser(account: Account) = accounts.any { it.getIdentifier() == account.getIdentifier() }
 
     fun getAllAccounts(): List<Account> {
         return accounts.toList()
