@@ -2,6 +2,7 @@ package services
 
 import domains.Account
 import domains.AccountManager
+import exceptions.InvalidTransferException
 import exceptions.UserNotFoundException
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
@@ -36,5 +37,27 @@ class AccountServiceTest {
         assertThatThrownBy {
             service.transfer(transaction)
         }.isInstanceOf(UserNotFoundException::class.java)
+    }
+
+    @Test
+    fun `throws InvalidTransferException when the user has no money to transfer`() {
+        manager.insertAccount(Account("2", 1.00))
+        manager.insertAccount(Account("4", 60.00))
+
+        val transaction = TransferCommand("2", "4", 50.00)
+
+        assertThatThrownBy {
+            service.transfer(transaction)
+        }.isInstanceOf(InvalidTransferException::class.java)
+    }
+
+    @Test
+    fun `inserts account successfully`() {
+        val id = "123"
+        val command = CreateAccountCommand(id, 10.00)
+
+        service.createAccount(command)
+
+        assertThat(manager.getAccountById(id).getIdentifier()).isEqualTo(id)
     }
 }
