@@ -2,7 +2,9 @@ package services
 
 import domains.Account
 import domains.AccountManager
+import exceptions.UserNotFoundException
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.Test
 import requests.TransferRequest
 import java.util.UUID
@@ -24,7 +26,16 @@ class AccountServiceTest {
 
         service.transfer(transaction)
 
-        assertThat(manager.getAccountById(giverId)?.getAvailableMoney()).isEqualTo(20.00)
-        assertThat(manager.getAccountById(beneficiaryId)?.getAvailableMoney()).isEqualTo(20.00)
+        assertThat(manager.getAccountById(giverId).getAvailableMoney()).isEqualTo(20.00)
+        assertThat(manager.getAccountById(beneficiaryId).getAvailableMoney()).isEqualTo(20.00)
+    }
+
+    @Test
+    fun `throws UserNotFoundException when the user id was not found`() {
+        val transaction = TransferRequest(UUID.randomUUID(), UUID.randomUUID(), 10.00)
+
+        assertThatThrownBy {
+            service.transfer(transaction)
+        }.isInstanceOf(UserNotFoundException::class.java)
     }
 }

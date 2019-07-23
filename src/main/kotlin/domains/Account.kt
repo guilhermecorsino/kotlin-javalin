@@ -24,7 +24,7 @@ class Account(
     }
 
     private fun debitMoney(moneyToBeTransferred: Double) {
-        this.availableMoney -= moneyToBeTransferred
+        availableMoney -= moneyToBeTransferred
     }
 
     private fun creditMoney(moneyToBeCredited: Double) {

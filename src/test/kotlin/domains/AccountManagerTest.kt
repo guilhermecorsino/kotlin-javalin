@@ -1,6 +1,7 @@
 package domains
 
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.Test
 import java.util.UUID
 
@@ -15,15 +16,13 @@ class AccountManagerTest {
 
         val account = accountManager.getAccountById(accountId)
 
-        assertThat(account?.getIdentifier()).isEqualTo(accountId)
+        assertThat(account.getIdentifier()).isEqualTo(accountId)
     }
 
     @Test
-    fun `returns null when account was not found`() {
+    fun `throws NoSuchElementException when account was not found`() {
         val accountManager = AccountManager()
 
-        val account = accountManager.getAccountById(UUID.randomUUID())
-
-        assertThat(account).isNull()
+        assertThatThrownBy { accountManager.getAccountById(UUID.randomUUID()) }
     }
 }
