@@ -1,24 +1,25 @@
 package web
 
-import domains.AccountManager
-import web.exceptions.ApiException
+import config.DependencyInjector
 import io.javalin.Javalin
 import io.javalin.apibuilder.ApiBuilder.path
 import io.javalin.apibuilder.ApiBuilder.get
 import io.javalin.apibuilder.ApiBuilder.post
-import services.AccountService
+import org.koin.core.KoinComponent
+import org.koin.core.inject
+import web.config.setDefaultErrorHandler
 import web.controllers.AccountController
 import web.controllers.TransferController
 
-class WebApplication {
+class WebApplication : KoinComponent {
 
     fun start() {
-        val manager = AccountManager()
-        val service = AccountService(manager)
-        val accountController = AccountController(service)
-        val transferController = TransferController(service)
+        DependencyInjector.inject()
 
-        val app = Javalin.create().start(7000)
+        val app = Javalin.create()
+
+        val accountController by inject<AccountController>()
+        val transferController by inject<TransferController>()
 
         app.routes {
             path("accounts") {
@@ -32,9 +33,8 @@ class WebApplication {
             }
         }
 
-        app.exception(ApiException::class.java) { e, ctx ->
-            ctx.status(e.httpStatus())
-            ctx.result(e.message())
-        }
+        app.setDefaultErrorHandler()
+
+        app.start()
     }
 }
