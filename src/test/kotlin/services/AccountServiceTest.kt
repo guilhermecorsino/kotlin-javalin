@@ -2,8 +2,8 @@ package services
 
 import domains.Account
 import domains.AccountManager
-import exceptions.InvalidTransferException
-import exceptions.UserNotFoundException
+import web.exceptions.InvalidTransferException
+import web.exceptions.UserNotFoundException
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.Test

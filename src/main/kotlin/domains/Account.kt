@@ -1,6 +1,6 @@
 package domains
 
-import exceptions.InvalidTransferException
+import web.exceptions.InvalidTransferException
 
 class Account(
     private val id: String,
@@ -14,13 +14,9 @@ class Account(
         beneficiary.creditMoney(moneyToBeTransferred)
     }
 
-    fun getAvailableMoney(): Double {
-        return availableMoney
-    }
+    fun getAvailableMoney(): Double = availableMoney
 
-    fun getIdentifier(): String {
-        return id
-    }
+    fun getIdentifier(): String = id
 
     private fun debitMoney(moneyToBeTransferred: Double) {
         availableMoney -= moneyToBeTransferred

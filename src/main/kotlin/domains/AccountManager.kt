@@ -1,7 +1,7 @@
 package domains
 
-import exceptions.UserAlreadyExistentException
-import exceptions.UserNotFoundException
+import web.exceptions.UserAlreadyExistentException
+import web.exceptions.UserNotFoundException
 import java.lang.Exception
 
 class AccountManager {

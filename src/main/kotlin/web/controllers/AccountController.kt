@@ -1,7 +1,7 @@
 package web.controllers
 
 import io.javalin.http.Context
-import requests.CreateAccountRequest
+import web.requests.CreateAccountRequest
 import services.AccountService
 import services.command.CreateAccountCommand
 

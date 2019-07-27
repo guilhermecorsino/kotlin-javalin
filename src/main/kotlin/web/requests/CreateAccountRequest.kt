@@ -1,4 +1,4 @@
-package requests
+package web.requests
 
 data class CreateAccountRequest(
     val id: String,

@@ -1,4 +1,4 @@
-package exceptions
+package web.exceptions
 
 class InvalidTransferException: ApiException() {
     override fun message() = "This transfer is invalid."

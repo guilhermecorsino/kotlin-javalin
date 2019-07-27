@@ -2,8 +2,8 @@ package test.domains
 
 import domains.Account
 import domains.AccountManager
-import exceptions.UserAlreadyExistentException
-import exceptions.UserNotFoundException
+import web.exceptions.UserAlreadyExistentException
+import web.exceptions.UserNotFoundException
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.Test
