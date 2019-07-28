@@ -1,4 +1,4 @@
-package config
+package config.modules
 
 import domains.AccountManager
 import org.koin.core.module.Module
