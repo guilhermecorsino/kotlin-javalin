@@ -13,8 +13,8 @@ fun Javalin.mapRoutes(): Javalin =
 
             post { ctx -> DependencyManager.accountController.createAccount(ctx) }
 
-            path(":giverId") {
-                post("transfer") { ctx -> DependencyManager.transferController.transfer(ctx) }
+            path(":giverId/transfers") {
+                post { ctx -> DependencyManager.transferController.transfer(ctx) }
             }
         }
     }
