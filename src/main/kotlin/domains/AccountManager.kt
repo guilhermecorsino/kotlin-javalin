@@ -10,7 +10,7 @@ class AccountManager {
     fun getAccountById(id: String): Account {
         try {
             return accounts.first { it.getIdentifier() == id }
-        } catch(e: Exception) {
+        } catch (e: Exception) {
             throw UserNotFoundException()
         }
     }

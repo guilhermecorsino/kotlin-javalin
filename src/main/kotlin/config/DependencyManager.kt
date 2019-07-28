@@ -6,7 +6,7 @@ import web.controllers.AccountController
 import web.controllers.TransferController
 
 class DependencyManager {
-    companion object: KoinComponent {
+    companion object : KoinComponent {
         val accountController by inject<AccountController>()
         val transferController by inject<TransferController>()
     }

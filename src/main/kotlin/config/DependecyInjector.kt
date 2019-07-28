@@ -7,7 +7,7 @@ import org.koin.core.context.startKoin
 
 class DependencyInjector {
 
-    companion object: KoinComponent {
+    companion object : KoinComponent {
         fun inject() {
             startKoin {
                 modules(
