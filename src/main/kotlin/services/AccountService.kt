@@ -1,12 +1,12 @@
 package services
 
 import domains.Account
-import domains.InMemoryAccountRepository
+import domains.AccountRepository
 import services.command.TransferCommand
 import services.command.CreateAccountCommand
 
 class AccountService(
-    private val manager: InMemoryAccountRepository
+    private val manager: AccountRepository
 ) {
     fun transfer(transfer: TransferCommand) {
 
