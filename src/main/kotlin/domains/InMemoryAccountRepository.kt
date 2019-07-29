@@ -4,10 +4,10 @@ import web.exceptions.UserAlreadyExistentException
 import web.exceptions.UserNotFoundException
 import java.lang.Exception
 
-class AccountManager {
+class InMemoryAccountRepository: AccountRepository {
     private var accounts: ArrayList<Account> = arrayListOf()
 
-    fun getAccountById(id: String): Account {
+    override fun getAccountById(id: String): Account {
         try {
             return accounts.first { it.getIdentifier() == id }
         } catch (e: Exception) {
@@ -15,16 +15,16 @@ class AccountManager {
         }
     }
 
-    fun insertAccount(account: Account) {
+    override fun insertAccount(account: Account) {
         if (isARegisteredUser(account))
             throw UserAlreadyExistentException()
 
         accounts.add(account)
     }
 
-    private fun isARegisteredUser(account: Account) = accounts.any { it.getIdentifier() == account.getIdentifier() }
-
-    fun getAllAccounts(): List<Account> {
+    override fun getAllAccounts(): List<Account> {
         return accounts.toList()
     }
+
+    private fun isARegisteredUser(account: Account) = accounts.any { it.getIdentifier() == account.getIdentifier() }
 }

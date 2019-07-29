@@ -1,7 +1,7 @@
 package services
 
 import domains.Account
-import domains.AccountManager
+import domains.InMemoryAccountRepository
 import web.exceptions.InvalidTransferException
 import web.exceptions.UserNotFoundException
 import org.assertj.core.api.Assertions.assertThat
@@ -12,7 +12,7 @@ import services.command.CreateAccountCommand
 
 class AccountServiceTest {
 
-    private val manager = AccountManager()
+    private val manager = InMemoryAccountRepository()
     private val service = AccountService(manager)
 
     @Test
