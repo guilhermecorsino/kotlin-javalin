@@ -2,29 +2,26 @@ package domains
 
 import web.exceptions.UserAlreadyExistentException
 import web.exceptions.UserNotFoundException
-import java.lang.Exception
+import java.util.concurrent.ConcurrentHashMap
 
-class InMemoryAccountRepository: AccountRepository {
-    private var accounts: ArrayList<Account> = arrayListOf()
+class InMemoryAccountRepository(
+    private val accounts: ConcurrentHashMap<String, Account> = ConcurrentHashMap()
+) : AccountRepository {
 
     override fun getAccountById(id: String): Account {
-        try {
-            return accounts.first { it.getIdentifier() == id }
-        } catch (e: Exception) {
-            throw UserNotFoundException()
-        }
+        return accounts[id] ?: throw UserNotFoundException()
     }
 
     override fun insertAccount(account: Account) {
         if (isARegisteredUser(account))
             throw UserAlreadyExistentException()
 
-        accounts.add(account)
+        accounts[account.getIdentifier()] = account
     }
 
     override fun getAllAccounts(): List<Account> {
-        return accounts.toList()
+        return accounts.toList().map { pair -> pair.second }
     }
 
-    private fun isARegisteredUser(account: Account) = accounts.any { it.getIdentifier() == account.getIdentifier() }
+    private fun isARegisteredUser(account: Account) = accounts.containsKey(account.getIdentifier())
 }

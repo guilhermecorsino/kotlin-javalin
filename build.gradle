@@ -30,3 +30,12 @@ compileKotlin {
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
+
+test {
+    useJUnit()
+}
+
+task enqueuer(type: Exec) {
+    executable 'enqueuer'
+    args 'src/test/enqueuer/*.yaml'
+}

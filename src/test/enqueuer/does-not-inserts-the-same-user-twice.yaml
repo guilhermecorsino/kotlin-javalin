@@ -1,0 +1,29 @@
+requisitions:
+  - publishers:
+      - name: Creates a user to be the giver in the transfer
+        type: http
+        url: http://localhost:7000/accounts
+        method: POST
+        headers:
+          content-type: application/json
+        payload:
+          id: 12394
+          balance: 100.00
+        onResponseReceived:
+          assertions:
+            - expect: statusCode
+              toBeEqualTo: 200
+  - publishers:
+      - name: Creates a user with an existent id
+        type: http
+        url: http://localhost:7000/accounts
+        method: POST
+        headers:
+          content-type: application/json
+        payload:
+          id: 12394
+          balance: 100.00
+        onResponseReceived:
+          assertions:
+            - expect: statusCode
+              toBeEqualTo: 422

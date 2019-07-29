@@ -1,0 +1,79 @@
+iterations: 10
+onInit:
+  script: |-
+    firstId = store.firstId === undefined ? 10 : (store.firstId + 2)
+    secondId = firstId + 1
+  store:
+    firstId: firstId
+    secondId: secondId
+
+requisitions:
+  - publishers:
+      - name: Creates a user to be the giver (<<firstId>>) in the transfer
+        type: http
+        url: http://localhost:7000/accounts
+        method: POST
+        headers:
+          content-type: application/json
+        payload:
+          id: <<firstId>>
+          balance: 100.00
+        onInit:
+          script: this.payload.id = store.firstId
+        onResponseReceived:
+          assertions:
+            - expect: statusCode
+              toBeEqualTo: 200
+
+      - name: Create a user to be the beneficiary (<<secondId>>) in the transfer
+        type: http
+        url: http://localhost:7000/accounts
+        method: POST
+        headers:
+          content-type: application/json
+        payload:
+          id: <<secondId>>
+          balance: 15.50
+        onInit:
+          script: this.payload.id = store.secondId
+        onResponseReceived:
+          assertions:
+            - expect: statusCode
+              toBeEqualTo: 200
+
+  - publishers:
+      - name: Transfers the money from giver (<<firstId>>) to the beneficiary (<<secondId>>)
+        type: http
+        url: http://localhost:7000/accounts/<<firstId>>/transfers
+        method: POST
+        headers:
+          content-type: application/json
+        payload:
+          beneficiaryId: <<secondId>>
+          value: 15.50
+        onInit:
+          script: |-
+            this.url = "http://localhost:7000/accounts/"+store.firstId+"/transfers"
+            this.payload.beneficiaryId = store.secondId
+        onResponseReceived:
+          assertions:
+            - expect: statusCode
+              toBeEqualTo: 200
+
+  - publishers:
+      - name: Gets updated account list
+        type: http
+        url: http://localhost:7000/accounts
+        method: GET
+        onResponseReceived:
+          script: |-
+            payload = JSON.parse(body)
+            first = payload.find(account => account.identifier == store.firstId)
+            second = payload.find(account => account.identifier == store.secondId)
+          assertions:
+            - expect: statusCode
+              toBeEqualTo: 200
+            - expect: first.availableMoney
+              toBeEqualTo: 84.50
+            - expect: second.availableMoney
+              toBeEqualTo: 31.00
