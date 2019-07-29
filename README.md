@@ -1,12 +1,32 @@
 # Account API
-### How to run the application
+
+#### Build the application
+
+```sh
+./gradlew clean build
+```
+
+#### Test units of the application
+
+```sh
+./gradlew test
+```
+
+#### Run all applications test
+
+```sh
+make all-tests
+```
+`_make_`: You will need to install the make on your machine 
+
+#### Run the application
 
 ```sh
 ./gradlew clean run
 ```
 
-### How to create an account?
-#### Endpoint: 
+#### Create an account
+##### Endpoint: 
 ##### POST - http://localhost:7000/accounts
 ##### Payload: 
 
@@ -32,7 +52,7 @@ curl -X POST \
 }'
 ```
 
-### How to get the list of existent accounts?
+### Get the list of existent accounts
 
 #### Endpoint: 
 ##### GET - http://localhost:7000/accounts
@@ -42,7 +62,7 @@ curl -X GET \
   http://localhost:7000/accounts
 ```
 
-### How to transfer money between accounts?
+### Transfer money between accounts
 
 #### Endpoint: 
 ##### POST - http://localhost:7000/:giverId/transfers
