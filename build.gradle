@@ -5,7 +5,7 @@ plugins {
 
 mainClassName = 'ApplicationKt'
 
-group 'revolut.account'
+group 'account.api'
 version '1.0-SNAPSHOT'
 
 repositories {
